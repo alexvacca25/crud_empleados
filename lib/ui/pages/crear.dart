@@ -1,8 +1,11 @@
 import 'package:crud_empleados/domain/modelos/empleados.dart';
+import 'package:crud_empleados/ui/pages/widget.dart';
 import 'package:flutter/material.dart';
 
 class CrearEmpleado extends StatefulWidget {
-  const CrearEmpleado({Key? key}) : super(key: key);
+  final Empleado gestionEmpleado;
+  const CrearEmpleado({Key? key, required this.gestionEmpleado})
+      : super(key: key);
 
   @override
   State<CrearEmpleado> createState() => _CrearEmpleadoState();
@@ -16,6 +19,15 @@ class _CrearEmpleadoState extends State<CrearEmpleado> {
   DateTime fechanac = DateTime(1990);
 
   @override
+  void initState() {
+    controlnombre.text = widget.gestionEmpleado.nombre;
+    controlapellido.text = widget.gestionEmpleado.apellido;
+    controltelefono.text = widget.gestionEmpleado.telefono;
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -23,60 +35,9 @@ class _CrearEmpleadoState extends State<CrearEmpleado> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: controlnombre,
-              decoration: InputDecoration(
-                  filled: true,
-                  labelText: 'Nombres',
-                  // suffix: Icon(Icons.access_alarm),
-                  suffix: GestureDetector(
-                    child: const Icon(Icons.close),
-                    onTap: () {
-                      controlnombre.clear();
-                    },
-                  )
-                  //probar suffix
-                  ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: controlapellido,
-              decoration: InputDecoration(
-                  filled: true,
-                  labelText: 'Apellido',
-                  // suffix: Icon(Icons.access_alarm),
-                  suffix: GestureDetector(
-                    child: const Icon(Icons.close),
-                    onTap: () {
-                      controlnombre.clear();
-                    },
-                  )
-                  //probar suffix
-                  ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextField(
-              controller: controltelefono,
-              decoration: InputDecoration(
-                  filled: true,
-                  labelText: 'Telefono',
-                  // suffix: Icon(Icons.access_alarm),
-                  suffix: GestureDetector(
-                    child: const Icon(Icons.close),
-                    onTap: () {
-                      controlnombre.clear();
-                    },
-                  )
-                  //probar suffix
-                  ),
-            ),
-          ),
+          Textos(gestioncontroles: controlnombre),
+          Textos(gestioncontroles: controlapellido),
+          Textos(gestioncontroles: controltelefono),
           ElevatedButton(
               onPressed: () {
                 _addEmpleado.add(Empleado(
